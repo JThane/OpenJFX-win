@@ -1,5 +1,7 @@
+version: 1.0.{build}
+skip_tags: true
 image: Visual Studio 2017
-
+platform: x64
 environment:
   OPEN_JDK_URL: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u192-b12/OpenJDK8U-jdk_x64_windows_hotspot_8u192b12.zip
   OPEN_JDK_DIR: jdk8u192-b12
@@ -8,49 +10,58 @@ environment:
   MSVC_VER: 14.15.26726
   WINSDK_DIR: C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A
   VS150COMNTOOLS: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
-
-skip_tags: true
-
 install:
-  - curl -L -o jdk.zip %OPEN_JDK_URL%
-  - 7z x jdk.zip
-  - set JAVA_HOME=%APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR%
-  - PATH %JAVA_HOME%\bin;%PATH%
-  - echo "PATH:%PATH%"
-  - java -version
-  - set WORK_DIR=work
-  - hg clone %OPENJFX_REPO% %WORK_DIR%
-  - cd "%WORK_DIR%"
-  - hg up %OPENJFX_TAG%
-  - set JDKJFX=%OPEN_JDK_DIR%-with-jfx%OPENJFX_TAG%
+- sh: >-
+    curl -L -o jdk.zip %OPEN_JDK_URL%
 
+    7z x jdk.zip
+
+    set JAVA_HOME=%APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR%
+
+    PATH %JAVA_HOME%\bin;%PATH%
+
+    echo "PATH:%PATH%"
+
+    java -version
+
+    set WORK_DIR=work
+
+    hg clone %OPENJFX_REPO% %WORK_DIR%
+
+    cd "%WORK_DIR%"
+
+    hg up %OPENJFX_TAG%
+
+    set JDKJFX=%OPEN_JDK_DIR%-with-jfx%OPENJFX_TAG%
 build_script:
-  - echo "Patching build.gradle to allow parsing the version string provided by OpenJDK 8"
-  - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.indexOf\(" \(build "\)', 'v.indexOf("(build ")' | Set-Content -path build.gradle
-  - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.substring\(ib \+ 8', 'v.substring(ib + 7' | Set-Content -path build.gradle
-  - echo "running gradle in %cd%"
-  - gradlew -is
-  - md %JDKJFX%
-  - xcopy %APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR% %JDKJFX%\%JDKJFX% /i /e /k /h
-  - xcopy %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\build\sdk\rt %JDKJFX%\%JDKJFX%\jre /i /e /k /h
+- sh: >-
+    echo "Patching build.gradle to allow parsing the version string provided by OpenJDK 8"
 
+    ps: (Get-Content -path build.gradle -Raw) -replace 'v\.indexOf\(" \(build "\)', 'v.indexOf("(build ")' | Set-Content -path build.gradle
+
+    ps: (Get-Content -path build.gradle -Raw) -replace 'v\.substring\(ib \+ 8', 'v.substring(ib + 7' | Set-Content -path build.gradle
+
+    echo "running gradle in %cd%"
+
+    gradlew -is
+
+    md %JDKJFX%
+
+    xcopy %APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR% %JDKJFX%\%JDKJFX% /i /e /k /h
+
+    xcopy %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\build\sdk\rt %JDKJFX%\%JDKJFX%\jre /i /e /k /h
 artifacts:
-  - path: /$(WORK_DIR)/build/sdk
-    name: openjfx-sdk-$(OPENJFX_TAG)
-    type: zip
-  - path: /$(WORK_DIR)/$(JDKJFX)
-    name: $(JDKJFX)
-    type: zip
-
+- path: /$(WORK_DIR)/build/sdk
+  name: openjfx-sdk-$(OPENJFX_TAG)
+- path: /$(WORK_DIR)/$(JDKJFX)
+  name: $(JDKJFX)
 deploy:
+- provider: GitHub
   release: openjfx-v$(OPENJFX_TAG)
-  description: 'OpenJFX $(OPENJFX_TAG) binaries for Windows'
-  provider: GitHub
+  description: "'OpenJFX $(OPENJFX_TAG) binaries for Windows'"
   auth_token:
-    secure: KBros/Suy0qqL2zz85b35gQDBrtyILJxQDoDNIfE1XZcqoOWxtnV7JDPlXCr/AlM
+    secure: rDwaLHmaVO70zWJWulxxiGwp11vEgZkYBgajUL2qpidJpwHwooQQV3QdI0FL++aT
   artifact: openjfx-sdk-$(OPENJFX_TAG),$(JDKJFX)
-  draft: false
-  prerelease: false
   force_update: true
   on:
     branch: master

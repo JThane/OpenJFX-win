@@ -11,7 +11,7 @@ environment:
   WINSDK_DIR: C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A
   VS150COMNTOOLS: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
 install:
-- sh: >-
+- cmd: >-
     curl -L -o jdk.zip %OPEN_JDK_URL%
 
     7z x jdk.zip

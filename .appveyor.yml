@@ -6,7 +6,7 @@ environment:
   OPEN_JDK_DIR: jdk8u192-b12
   OPENJFX_REPO: http://hg.openjdk.java.net/openjfx/8u-dev/rt
   OPENJFX_TAG: 8u202-b02
-  MSVC_VER: 14.15.26726
+  MSVC_VER: 15.9.19
   WINSDK_DIR: C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A
   VS150COMNTOOLS: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
   VisualStudioVersion: 15.0

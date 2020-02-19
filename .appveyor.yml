@@ -2,8 +2,8 @@ version: 1.0.{build}
 skip_tags: true
 image: Visual Studio 2017
 environment:
-  OPEN_JDK_URL: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u192-b12/OpenJDK8U-jdk_x64_windows_hotspot_8u192b12.zip
-  OPEN_JDK_DIR: jdk8u192-b12
+  OPEN_JDK_URL: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.zip
+  OPEN_JDK_DIR: jdk8u242-b08
   OPENJFX_REPO: http://hg.openjdk.java.net/openjfx/8u-dev/rt
   OPENJFX_TAG: 8u202-ga
   WINSDK_DIR: C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A

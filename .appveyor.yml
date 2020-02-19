@@ -43,7 +43,7 @@ deploy:
   release: openjfx-v$(OPENJFX_TAG)
   description: OpenJFX $(OPENJFX_TAG) binaries for Windows
   auth_token:
-    secure: ZBIHFUcX9DqdPaNFoV4eseaXpF+ulOe0Rz5azHOZDQTWQHCA46gB+njZJlquUT9m3UnISUbnrakJevxm4631GgngFaDE0SoMd9Eciw3Hx7w=
+    secure: Nmp14mBBSCsz0TDpfQMkk+nf2lwkE9SF9S0zvcSy80gP+x/HF4X8ErV7XyIf1vTB
   artifact: openjfx-sdk-$(OPENJFX_TAG),$(JDKJFX)
   force_update: true
   on:

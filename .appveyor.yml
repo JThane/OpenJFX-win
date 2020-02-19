@@ -8,7 +8,7 @@ environment:
   OPENJFX_TAG: 8u202-ga
   WINSDK_DIR: C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A
   VS150COMNTOOLS: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
-  MSVC_VER: 15.9.19
+  MSVC_VER: 14.16.27023
   VisualStudioVersion: 15.0
 install:
 - cmd: >-

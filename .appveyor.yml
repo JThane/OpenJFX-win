@@ -5,7 +5,7 @@ environment:
   OPEN_JDK_URL: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.zip
   OPEN_JDK_DIR: jdk8u242-b08
   OPENJFX_REPO: http://hg.openjdk.java.net/openjfx/8u-dev/rt
-  OPENJFX_TAG: 8u202-ga
+  OPENJFX_TAG: 8u60-b27
   WINSDK_DIR: C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A
   VS150COMNTOOLS: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
   MSVC_VER: 14.16.27023
@@ -29,7 +29,7 @@ build_script:
 - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.indexOf\(" \(build "\)', 'v.indexOf("(build ")' | Set-Content -path build.gradle
 - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.substring\(ib \+ 8', 'v.substring(ib + 7' | Set-Content -path build.gradle
 - cmd: echo "running gradle in %cd%"
-- cmd: gradlew -is
+- cmd: gradle
 - cmd: md %JDKJFX%
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR% %JDKJFX%\%JDKJFX% /i /e /k /h
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\build\sdk\rt %JDKJFX%\%JDKJFX%\jre /i /e /k /h

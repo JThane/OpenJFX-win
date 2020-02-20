@@ -36,7 +36,6 @@ build_script:
 - cmd: echo "running gradle in %cd%"
 - cmd: set DIRNAME=%~dp0
 - cmd: set APP_HOME=%DIRNAME%
-- cmd: %APP_HOME%\gradle\gradle
 - cmd: md %JDKJFX%
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR% %JDKJFX%\%JDKJFX% /i /e /k /h
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\build\sdk\rt %JDKJFX%\%JDKJFX%\jre /i /e /k /h

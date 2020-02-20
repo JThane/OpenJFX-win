@@ -12,7 +12,6 @@ environment:
   VisualStudioVersion: 15.0
 install:
 - cmd: dir "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC"
-- cmd: dir %~dp0   
 - cmd: dir %APPVEYOR_BUILD_FOLDER%
 - cmd: curl -L -o jdk.zip %OPEN_JDK_URL%
 - cmd: 7z x jdk.zip
@@ -32,10 +31,8 @@ build_script:
 - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.substring\(ib \+ 8', 'v.substring(ib + 7' | Set-Content -path build.gradle
 - cmd: copy %APPVEYOR_BUILD_FOLDER%\gradlew.bat %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\gradlew.bat
 - cmd: dir %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%
-- cmd: dir %~dp0
 - cmd: echo "running gradle in %cd%"
-- cmd: set DIRNAME=%~dp0
-- cmd: set APP_HOME=%DIRNAME%
+- cmd: gradle
 - cmd: md %JDKJFX%
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR% %JDKJFX%\%JDKJFX% /i /e /k /h
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\build\sdk\rt %JDKJFX%\%JDKJFX%\jre /i /e /k /h

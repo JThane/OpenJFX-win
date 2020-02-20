@@ -21,6 +21,8 @@ install:
         echo "PATH:%PATH%"
         java -version
         set WORK_DIR=work
+        xcopy %APPVEYOR_BUILD_FOLDER%\gradlew.bat %APPVEYOR_BUILD_FOLDER%\%WORK_DIR% /k /h
+        dir %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%
         hg clone %OPENJFX_REPO% %WORK_DIR%
         cd "%WORK_DIR%"
         hg up %OPENJFX_TAG%

@@ -13,6 +13,10 @@ environment:
 install:
 - cmd: >-
     dir "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC"
+    set DIRNAME=%~dp0
+    if "%DIRNAME%" == "" set DIRNAME=.
+    set APP_BASE_NAME=%~n0
+    set APP_HOME=%DIRNAME%
     dir %APP_HOME%
     dir %APPVEYOR_BUILD_FOLDER%
         curl -L -o jdk.zip %OPEN_JDK_URL%

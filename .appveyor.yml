@@ -32,7 +32,7 @@ build_script:
 - cmd: copy %APPVEYOR_BUILD_FOLDER%\gradlew.bat %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\gradlew.bat
 - cmd: dir %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%
 - cmd: echo "running gradle in %cd%"
-- cmd: gradle
+- cmd: gradlew -is
 - cmd: md %JDKJFX%
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%OPEN_JDK_DIR% %JDKJFX%\%JDKJFX% /i /e /k /h
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\build\sdk\rt %JDKJFX%\%JDKJFX%\jre /i /e /k /h

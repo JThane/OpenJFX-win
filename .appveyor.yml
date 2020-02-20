@@ -21,9 +21,6 @@ install:
         echo "PATH:%PATH%"
         java -version
         set WORK_DIR=work
-        md %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%
-        copy %APPVEYOR_BUILD_FOLDER%\gradlew.bat %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\gradlew.bat
-        dir %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%
         hg clone %OPENJFX_REPO% %WORK_DIR%
         cd "%WORK_DIR%"
         hg up %OPENJFX_TAG%
@@ -33,6 +30,8 @@ build_script:
 - cmd: echo "Patching build.gradle to allow parsing the version string provided by OpenJDK 8"
 - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.indexOf\(" \(build "\)', 'v.indexOf("(build ")' | Set-Content -path build.gradle
 - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.substring\(ib \+ 8', 'v.substring(ib + 7' | Set-Content -path build.gradle
+- cmd: copy %APPVEYOR_BUILD_FOLDER%\gradlew.bat %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\gradlew.bat
+- cmd: dir %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%
 - cmd: echo "running gradle in %cd%"
 - cmd: gradlew -is
 - cmd: md %JDKJFX%

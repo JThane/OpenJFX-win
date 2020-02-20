@@ -25,7 +25,7 @@ install:
         hg up %OPENJFX_TAG%
         set JDKJFX=%OPEN_JDK_DIR%-with-jfx%OPENJFX_TAG%
 build_script:
-- cmd: copy "C:/projects/openjfx-win/gradle*" %cd%
+- cmd: copy "C:/projects/openjfx-win/gradlew.bat" "C:/projects/openjfx-win/work/gradlew.bat"
 - cmd: dir %cd%
 - cmd: echo "Patching build.gradle to allow parsing the version string provided by OpenJDK 8"
 - ps: (Get-Content -path build.gradle -Raw) -replace 'v\.indexOf\(" \(build "\)', 'v.indexOf("(build ")' | Set-Content -path build.gradle

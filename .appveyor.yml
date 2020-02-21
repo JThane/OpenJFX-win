@@ -33,6 +33,8 @@ build_script:
 - cmd: md gradle
 - cmd: xcopy %APPVEYOR_BUILD_FOLDER%\gradle %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%\gradle /i /e /k /h
 - cmd: dir %APPVEYOR_BUILD_FOLDER%\%WORK_DIR%
+- cmd: gradlew wrapper --gradle-version 1.8
+- cmd: gradlew build
 - cmd: echo "running gradle in %cd%"
 - cmd: gradlew -is
 - cmd: md %JDKJFX%
